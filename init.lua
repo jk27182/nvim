@@ -53,30 +53,50 @@ require('packer').startup(function(use)
   use 'tpope/vim-rhubarb'
   use 'lewis6991/gitsigns.nvim'
 
-  -- Org mode in Neovim
-  use {
-    "nvim-neorg/neorg",
-    ft = "norg",
-    after = {'nvim-treesitter', 'nvim-telescope'},
-    config = function()
-        require('neorg').setup {
-            load = {
-                ["core.defaults"] = {}, -- Loads default behaviour
-                ["core.norg.concealer"] = {}, -- Adds pretty icons to your documents
-                ["core.norg.dirman"] = { -- Manages Neorg workspaces
-                    config = {
-                        workspaces = {
-                            notes = "~/notes",
-                        },
-                    },
-                },
-            },
-            tag = '*',
-        }
-    end,
-    run = ":Neorg sync-parsers",
-    requires = "nvim-lua/plenary.nvim",
-  }
+  -- Org mode in Neovim lazy loeading
+  -- use {
+  --   "nvim-neorg/neorg",
+  --   ft = "norg",
+  --   after = {'nvim-treesitter', 'nvim-telescope'},
+  --   tag = '*',
+  --   config = function()
+  --       require('neorg').setup {
+  --           load = {
+  --               ["core.defaults"] = {}, -- Loads default behaviour
+  --               ["core.norg.concealer"] = {}, -- Adds pretty icons to your documents
+  --               ["core.norg.dirman"] = { -- Manages Neorg workspaces
+  --                   config = {
+  --                       workspaces = {
+  --                           notes = "~/notes",
+  --                       },
+  --                   },
+  --               },
+  --           },
+  --       }
+  --   end
+  -- }
+  -- orgmode in neovim normal
+  -- use {
+  --   "nvim-neorg/neorg",
+  --   run = ":Neorg sync-parsers",
+  --   config = function()
+  --       require('neorg').setup {
+  --           load = {
+  --               ["core.defaults"] = {}, -- Loads default behaviour
+  --               ["core.norg.concealer"] = {}, -- Adds pretty icons to your documents
+  --               ["core.norg.dirman"] = { -- Manages Neorg workspaces
+  --                   config = {
+  --                       workspaces = {
+  --                           notes = "~/notes",
+  --                       },
+  --                   },
+  --               },
+  --           },
+  --       }
+  --   end,
+  --   requires = "nvim-lua/plenary.nvim",
+  -- }
+
 
   use 'navarasu/onedark.nvim' -- Theme inspired by Atom
   use 'nvim-lualine/lualine.nvim' -- Fancier statusline
@@ -276,7 +296,7 @@ vim.keymap.set('n', '<leader>sd', require('telescope.builtin').diagnostics, { de
 -- See `:help nvim-treesitter`
 require('nvim-treesitter.configs').setup {
   -- Add languages to be installed here that you want installed for treesitter
-  ensure_installed = { 'c', 'cpp', 'go', 'lua', 'python', 'rust', 'typescript', 'help', 'vim' },
+  ensure_installed = { 'c', 'cpp', 'go', 'lua', 'python', 'rust', 'typescript', 'help', 'vim', 'norg' },
 
   highlight = { enable = true },
   indent = { enable = true, disable = { 'python' } },
