@@ -77,26 +77,25 @@ require('packer').startup(function(use)
   -- }
   -- orgmode in neovim normal
   -- use {
-  --   "nvim-neorg/neorg",
-  --   run = ":Neorg sync-parsers",
-  --   config = function()
-  --       require('neorg').setup {
-  --           load = {
-  --               ["core.defaults"] = {}, -- Loads default behaviour
-  --               ["core.norg.concealer"] = {}, -- Adds pretty icons to your documents
-  --               ["core.norg.dirman"] = { -- Manages Neorg workspaces
-  --                   config = {
-  --                       workspaces = {
-  --                           notes = "~/notes",
-  --                       },
-  --                   },
-  --               },
-  --           },
-  --       }
-  --   end,
-  --   requires = "nvim-lua/plenary.nvim",
+  --     "nvim-neorg/neorg",
+  --     config = function()
+  --         require('neorg').setup {
+  --             load = {
+  --                 ["core.defaults"] = {}, -- Loads default behaviour
+  --                 ["core.norg.concealer"] = {}, -- Adds pretty icons to your documents
+  --                 ["core.norg.dirman"] = { -- Manages Neorg workspaces
+  --                     config = {
+  --                         workspaces = {
+  --                             notes = "~/notes",
+  --                         },
+  --                     },
+  --                 },
+  --             },
+  --         }
+  --     end,
+  --     run = ":Neorg sync-parsers",
+  --     requires = "nvim-lua/plenary.nvim",
   -- }
-
 
   use 'navarasu/onedark.nvim' -- Theme inspired by Atom
   use 'nvim-lualine/lualine.nvim' -- Fancier statusline
@@ -199,6 +198,13 @@ vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
 vim.keymap.set('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
 vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
 
+-- Kopieren zum Clipboard
+vim.keymap.set({'n','v'}, '<leader>y', '"+y')
+vim.keymap.set('n', '<leader>Y', '"+yg_')
+-- Einfügen von Clipboard
+vim.keymap.set({'n','v'}, '<leader>p', '+p')
+vim.keymap.set({'n','v'}, '<leader>P', '+P')
+
 -- git Shortcuts
 vim.keymap.set({'n', 'v'}, '<leader>gs', "<cmd>G status<CR>")
 vim.keymap.set({'n', 'v'}, '<leader>gd', "<cmd>G diff<CR>")
@@ -296,7 +302,7 @@ vim.keymap.set('n', '<leader>sd', require('telescope.builtin').diagnostics, { de
 -- See `:help nvim-treesitter`
 require('nvim-treesitter.configs').setup {
   -- Add languages to be installed here that you want installed for treesitter
-  ensure_installed = { 'c', 'cpp', 'go', 'lua', 'python', 'rust', 'typescript', 'help', 'vim', 'norg' },
+  ensure_installed = { 'c', 'cpp', 'go', 'lua', 'python', 'rust', 'typescript', 'help', 'vim',}, -- norg
 
   highlight = { enable = true },
   indent = { enable = true, disable = { 'python' } },
@@ -505,6 +511,10 @@ cmp.setup {
     { name = 'luasnip' },
   },
 }
+
+-- kitty specific 
+vim.cmd("source ~/.config/nvim/kitty_settings.vim")
+
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
