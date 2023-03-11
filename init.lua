@@ -214,7 +214,8 @@ vim.keymap.set({'n', 'v'}, '<leader>gg', "<cmd>G<CR>")
 vim.keymap.set('v', '<', '<gv')
 vim.keymap.set('v', '>', '>gv')
 
-
+-- Auflisten der Buffer
+-- vim.keymap.set({'n', 'v'}, '<leader>bb', "<cmd>bb<CR>")
 -- [[ Highlight on yank ]]
 -- See `:help vim.highlight.on_yank()`
 local highlight_group = vim.api.nvim_create_augroup('YankHighlight', { clear = true })
@@ -277,19 +278,19 @@ require('toggleterm').setup{
 
 -- Enable telescope fzf native, if installed
 pcall(require('telescope').load_extension, 'fzf')
-local function test()
-   return function ()
-      require('telescope.builtin').current_buffer_fuzzy_find(require('telescope.themes').get_dropdown {
-      winblend = 10,
-      previewer = false,
-    })
-   end
-end
+-- local function test()
+--    return function ()
+--       require('telescope.builtin').current_buffer_fuzzy_find(require('telescope.themes').get_dropdown {
+--       winblend = 10,
+--       previewer = false,
+--     })
+--    end
+-- end
 -- See `:help telescope.builtin`
---vim.keymap.set('n', '<leader>/', "<cmd>Telescope current_buffer_fuzzy_find<CR> <bar> z.", { desc = '[/] Fuzzily search in current buffer]' })
+-- vim.keymap.set('n', '<leader>/', "<cmd>Telescope current_buffer_fuzzy_find<CR> <bar> z.", { desc = '[/] Fuzzily search in current buffer]' })
 vim.keymap.set('n', '<leader>?', require('telescope.builtin').oldfiles, { desc = '[?] Find recently opened files' })
 vim.keymap.set('n', '<leader><space>', require('telescope.builtin').buffers, { desc = '[ ] Find existing buffers' })
-vim.keymap.set('n', '<leader>/', function ()
+vim.keymap.set('n', '<leader>bb', function ()
       require('telescope.builtin').current_buffer_fuzzy_find(require('telescope.themes').get_dropdown {
       winblend = 10,
       previewer = false,
@@ -436,7 +437,7 @@ local servers = {
   },
   -- rust_analyzer = {},
   -- tsserver = {},
-  sumneko_lua = {
+  lua_ls = {
     Lua = {
       workspace = { checkThirdParty = false },
       telemetry = { enable = false },
@@ -518,7 +519,7 @@ cmp.setup {
 }
 
 -- kitty specific 
-vim.cmd("source ~/.config/nvim/kitty_settings.vim")
+vim.cmd("source ~/.config/nvim_eigene_config/nvim/kitty_settings.vim")
 
 
 -- The line beneath this is called `modeline`. See `:help modeline`
