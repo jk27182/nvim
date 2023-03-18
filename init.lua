@@ -355,6 +355,7 @@ require('packer').startup(function(use)
     }
 
     require("neogit").setup {
+      disable_insert_on_commit = false,
       -- disable_signs = false,
       -- disable_hint = false,
       -- disable_context_highlighting = false,
