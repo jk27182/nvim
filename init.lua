@@ -103,6 +103,7 @@ require('packer').startup(function(use)
   --     run = ":Neorg sync-parsers",
   --     requires = "nvim-lua/plenary.nvim",
   -- }
+
   use {
   "nvim-neo-tree/neo-tree.nvim",
     branch = "v2.x",
@@ -123,7 +124,6 @@ require('packer').startup(function(use)
               bo = {
                 -- if the file type is one of following, the window will be ignored
                 filetype = { 'neo-tree', "neo-tree-popup", "notify" },
-
                 -- if the buffer type is one of following, the window will be ignored
                 buftype = { 'terminal', "quickfix" },
               },
@@ -136,7 +136,6 @@ require('packer').startup(function(use)
     config = function ()
       -- Unless you are still migrating, remove the deprecated commands from v1.x
       vim.cmd([[ let g:neo_tree_remove_legacy_commands = 1 ]])
-
       -- If you want icons for diagnostic errors, you'll need to define them somewhere:
       vim.fn.sign_define("DiagnosticSignError",
         {text = " ", texthl = "DiagnosticSignError"})
@@ -148,7 +147,6 @@ require('packer').startup(function(use)
         {text = "", texthl = "DiagnosticSignHint"})
       -- NOTE: this is changed from v1.x, which used the old style of highlight groups
       -- in the form "LspDiagnosticsSignWarning"
-
       require("neo-tree").setup({
         close_if_last_window = false, -- Close Neo-tree if it is the last window left in the tab
         popup_border_style = "rounded",
@@ -353,7 +351,6 @@ require('packer').startup(function(use)
           }
         }
       })
-
       vim.cmd([[nnoremap \ :Neotree reveal<cr>]])
     end
     }
@@ -455,6 +452,7 @@ require('packer').startup(function(use)
       --   }
       -- }
     }
+
   use 'navarasu/onedark.nvim' -- Theme inspired by Atom
   use 'nvim-lualine/lualine.nvim' -- Fancier statusline
   use 'lukas-reineke/indent-blankline.nvim' -- Add indentation guides even on blank lines
@@ -570,7 +568,6 @@ vim.keymap.set({'n','v'}, '<leader>P', '+P')
 -- vim.keymap.set({'n', 'v'}, '<leader>gs', "<cmd>G status<CR>")
 -- vim.keymap.set({'n', 'v'}, '<leader>gd', "<cmd>G diff<CR>")
 -- vim.keymap.set({'n', 'v'}, '<leader>gg', "<cmd>G<CR>")
-
 local function getDir(path)
   return path:match("^(.-)[\\/][^\\/]-$")
 end
@@ -649,10 +646,10 @@ require('telescope').setup {
   },
 }
 require('toggleterm').setup{
-  open_mapping = [[<C-j>]],
+  open_mapping = [[<C-t>]],
   start_in_insert=true,
 }
-vim.keymap.set('n', '[[<C-j>]]',"<cmd>ToggleTerm dir=%:h<CR>", { desc = 'Oeffnen eines Terminals vom momentaten dir' })
+-- vim.keymap.set('n', '[[<C-t>]]',"<cmd>ToggleTerm dir=%:h<CR>", { desc = 'Oeffnen eines Terminals vom momentaten dir' })
 
 -- require('explorer_plugin.neo-tree_config')
 -- Enable telescope fzf native, if installed
