@@ -546,8 +546,11 @@ vim.o.shiftwidth = 4
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
--- Save with space + s
+-- Save with Control + s
 vim.keymap.set({ 'n', 'i' }, '<C-s>', "<cmd>w<CR>")
+
+-- Edit config
+vim.keymap.set({ 'n', 'i' }, '<leader>ec', "<cmd>e $MYVIMRC<CR>")
 
 -- Keymaps for better default experience
 -- See `:help vim.keymap.set()`
