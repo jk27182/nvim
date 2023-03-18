@@ -463,7 +463,8 @@ require('packer').startup(function(use)
 
   -- Floating terminal like VS code
   use {'akinsho/toggleterm.nvim', tag = '*', config = function()
-          require('toggleterm').setup()
+          require('toggleterm').setup{
+          }
   end}
 
   use 'tpope/vim-unimpaired' -- Shortcuts for Buffer and file switching
@@ -649,7 +650,9 @@ require('telescope').setup {
 }
 require('toggleterm').setup{
   open_mapping = [[<C-j>]],
+  start_in_insert=true,
 }
+vim.keymap.set('n', '[[<C-j>]]',"<cmd>ToggleTerm dir=%:h<CR>", { desc = 'Oeffnen eines Terminals vom momentaten dir' })
 
 -- require('explorer_plugin.neo-tree_config')
 -- Enable telescope fzf native, if installed
