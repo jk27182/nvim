@@ -579,13 +579,59 @@ vim.keymap.set({'n', 'v'}, '<leader>gg', function ()
 end)
 -- Git status mit magit im Dir wo nvim im Terminal gestartet wurde
 vim.keymap.set({'n', 'v'}, '<leader>gG', function () require('neogit').open() end)
-
+-- Neotree
+vim.keymap.set({'n', 'v'}, '<leader>ee', "<cmd>NeoTreeRevealToggle<CR>")
 -- Behalten der Selection in visual mode
 vim.keymap.set('v', '<', '<gv')
 vim.keymap.set('v', '>', '>gv')
 
--- Neotree
-vim.keymap.set({'n', 'v'}, '<leader>ee', "<cmd>NeoTreeRevealToggle<CR>")
+
+-- Aus lazyvim geklaut
+-- windows
+vim.keymap.set("n", "<leader>ww", "<C-W>p", { desc = "Other window" })
+vim.keymap.set("n", "<leader>wn", "<C-W>n", { desc = "New window" })
+vim.keymap.set("n", "<leader>wd", "<C-W>c", { desc = "Delete window" })
+vim.keymap.set("n", "<leader>w|", "<C-W>s", { desc = "Split window below" })
+vim.keymap.set("n", "<leader>w-", "<C-W>v", { desc = "Split window right" })
+vim.keymap.set("n", "<leader>|", "<C-W>s", { desc = "Split window below" })
+vim.keymap.set("n", "<leader>-", "<C-W>v", { desc = "Split window right" })
+
+-- tabs
+vim.keymap.set("n", "<leader><tab>l", "<cmd>tablast<cr>", { desc = "Last Tab" })
+vim.keymap.set("n", "<leader><tab>f", "<cmd>tabfirst<cr>", { desc = "First Tab" })
+vim.keymap.set("n", "<leader><tab><tab>", "<cmd>tabnew<cr>", { desc = "New Tab" })
+vim.keymap.set("n", "<leader><tab>n", "<cmd>tabnext<cr>", { desc = "Next Tab" })
+vim.keymap.set("n", "<leader><tab>d", "<cmd>tabclose<cr>", { desc = "Close Tab" })
+vim.keymap.set("n", "<leader><tab>b", "<cmd>tabprevious<cr>", { desc = "Previous Tab" })
+
+-- better up/down
+vim.keymap.set("n", "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
+vim.keymap.set("n", "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
+
+-- Move to window using the <ctrl> hjkl keys
+vim.keymap.set("n", "<C-h>", "<C-w>h", { desc = "Go to left window" })
+vim.keymap.set("n", "<C-j>", "<C-w>j", { desc = "Go to lower window" })
+vim.keymap.set("n", "<C-k>", "<C-w>k", { desc = "Go to upper window" })
+vim.keymap.set("n", "<C-l>", "<C-w>l", { desc = "Go to right window" })
+
+-- Resize window using <ctrl> arrow keys
+vim.keymap.set("n", "<C-Up>", "<cmd>resize +2<cr>", { desc = "Increase window height" })
+vim.keymap.set("n", "<C-Down>", "<cmd>resize -2<cr>", { desc = "Decrease window height" })
+vim.keymap.set("n", "<C-Left>", "<cmd>vertical resize -2<cr>", { desc = "Decrease window width" })
+vim.keymap.set("n", "<C-Right>", "<cmd>vertical resize +2<cr>", { desc = "Increase window width" })
+
+-- Move Lines
+vim.keymap.set("n", "<A-j>", "<cmd>m .+1<cr>==", { desc = "Move down" })
+vim.keymap.set("n", "<A-k>", "<cmd>m .-2<cr>==", { desc = "Move up" })
+vim.keymap.set("i", "<A-j>", "<esc><cmd>m .+1<cr>==gi", { desc = "Move down" })
+vim.keymap.set("i", "<A-k>", "<esc><cmd>m .-2<cr>==gi", { desc = "Move up" })
+vim.keymap.set("v", "<A-j>", ":m '>+1<cr>gv=gv", { desc = "Move down" })
+vim.keymap.set("v", "<A-k>", ":m '<-2<cr>gv=gv", { desc = "Move up" })
+----------------------------------------------------------------
+
+
+-- Oeffnen einer Python REPL
+-- vim.keymap.set({'n', 'v'}, '<leader>tp', "<cmd>TermExec <CR>")
 
 -- Auflisten der Buffer
 -- vim.keymap.set({'n', 'v'}, '<leader>bb', "<cmd>bb<CR>")
@@ -778,7 +824,7 @@ local on_attach = function(_, bufnr)
 
   -- See `:help K` for why this keymap
   nmap('K', vim.lsp.buf.hover, 'Hover Documentation')
-  nmap('<C-k>', vim.lsp.buf.signature_help, 'Signature Documentation')
+  nmap('<leader>k', vim.lsp.buf.signature_help, 'Signature Documentation')
 
   -- Lesser used LSP functionality
   nmap('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
