@@ -206,7 +206,8 @@ local function getDir(path)
 end
 -- Git status mit magit im Dir von dem File des Buffers
 require("neogit").setup{
-    disable_insert_on_commit = false
+    disable_insert_on_commit = false,
+    disable_commit_confirmation = true
 }
 vim.keymap.set({'n', 'v'}, '<leader>gg', function ()
   require('neogit').open({
