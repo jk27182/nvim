@@ -205,6 +205,9 @@ local function getDir(path)
   return path:match("^(.-)[\\/][^\\/]-$")
 end
 -- Git status mit magit im Dir von dem File des Buffers
+require("neogit").setup{
+    disable_insert_on_commit = false
+}
 vim.keymap.set({'n', 'v'}, '<leader>gg', function ()
   require('neogit').open({
     cwd=getDir(vim.api.nvim_buf_get_name(0))
