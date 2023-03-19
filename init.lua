@@ -48,6 +48,10 @@ require('packer').startup(function(use)
   -- Fuzzy Finder Algorithm which requires local dependencies to be built. Only load if `make` is available
   use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make', cond = vim.fn.executable 'make' == 1 }
 
+  use { "nvim-telescope/telescope-file-browser.nvim",
+        requires = { "nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim" }
+   }
+
   -- Git related plugins
   -- use 'tpope/vim-fugitive'
   -- use 'tpope/vim-rhubarb'
@@ -156,7 +160,7 @@ vim.g.maplocalleader = ' '
 vim.keymap.set({ 'n', 'i' }, '<C-s>', "<cmd>w<CR>")
 
 -- Edit config
-vim.keymap.set({ 'n', 'i' }, '<leader>ec', "<cmd>e $MYVIMRC<CR>")
+vim.keymap.set({ 'n'}, '<leader>ec', "<cmd>e $MYVIMRC<CR>")
 
 -- Keymaps for better default experience
 -- See `:help vim.keymap.set()`
@@ -173,11 +177,27 @@ vim.keymap.set('n', '<leader>Y', '"+yg_')
 vim.keymap.set({'n','v'}, '<leader>p', '+p')
 vim.keymap.set({'n','v'}, '<leader>P', '+P')
 
+-- 
+vim.api.nvim_set_keymap(
+  "n",
+  "<space>fE",
+  "<cmd>Telescope file_browser<CR>",
+  { noremap = true }
+)
+
+-- open file_browser with the path of the current buffer
+vim.api.nvim_set_keymap(
+  "n",
+  "<space>fe",
+  "<cmd>Telescope file_browser path=%:p:h select_buffer=true<CR>",
+  { noremap = true }
+)
 -- git Shortcuts
 -- vim.keymap.set({'n', 'v'}, '<leader>gs', "<cmd>G status<CR>")
 -- vim.keymap.set({'n', 'v'}, '<leader>gd', "<cmd>G diff<CR>")
 -- vim.keymap.set({'n', 'v'}, '<leader>gg', "<cmd>G<CR>")
 local function getDir(path)
+  print(path:match("^(.-)[\\/][^\\/]-$"))
   return path:match("^(.-)[\\/][^\\/]-$")
 end
 -- Git status mit magit im Dir von dem File des Buffers
@@ -189,7 +209,7 @@ end)
 -- Git status mit magit im Dir wo nvim im Terminal gestartet wurde
 vim.keymap.set({'n', 'v'}, '<leader>gG', function () require('neogit').open() end)
 -- Neotree
-vim.keymap.set({'n', 'v'}, '<leader>ee', "<cmd>NeoTreeRevealToggle<CR>")
+-- vim.keymap.set({'n', 'v'}, '<leader>ee', "<cmd>NeoTreeRevealToggle<CR>")
 -- Behalten der Selection in visual mode
 vim.keymap.set('v', '<', '<gv')
 vim.keymap.set('v', '>', '>gv')
@@ -198,12 +218,15 @@ vim.keymap.set('v', '>', '>gv')
 -- Aus lazyvim geklaut
 -- windows
 vim.keymap.set("n", "<leader>ww", "<C-W>p", { desc = "Other window" })
-vim.keymap.set("n", "<leader>wn", "<C-W>n", { desc = "New window" })
+vim.keymap.set("n", "<leader>wnu", "<C-W>n", { desc = "New window below" })
+vim.keymap.set("n", "<leader>wnr", "<cmd>vnew<CR>", { desc = "New window to the left" })
 vim.keymap.set("n", "<leader>wd", "<C-W>c", { desc = "Delete window" })
-vim.keymap.set("n", "<leader>w-", "<C-W>s", { desc = "Split window below" })
-vim.keymap.set("n", "<leader>w|", "<C-W>v", { desc = "Split window right" })
-vim.keymap.set("n", "<leader>-", "<C-W>s", { desc = "Split window below" })
-vim.keymap.set("n", "<leader>|", "<C-W>v", { desc = "Split window right" })
+vim.keymap.set("n", "<leader>wu", "<C-W>s", { desc = "Split window below" })
+vim.keymap.set("n", "<leader>wr", "<C-W>v", { desc = "Split window right" })
+vim.keymap.set("n", "<leader>u", "<C-W>s", { desc = "Split window below" })
+vim.keymap.set("n", "<leader>rr", "<C-W>v", { desc = "Split window right" })
+-- Buffers
+vim.keymap.set("n", "<leader>bd", "<cmd>bd<CR>", { desc = "Delete current buffer" })
 
 -- tabs
 vim.keymap.set("n", "<leader><tab>l", "<cmd>tablast<cr>", { desc = "Last Tab" })
@@ -302,6 +325,72 @@ require('telescope').setup {
     },
   },
 }
+
+local fb_actions = require "telescope._extensions.file_browser.actions"
+require("telescope").setup {
+  extensions = {
+    file_browser = {
+      -- path
+      -- cwd
+      theme='ivy',
+      cwd_to_path = false,
+      grouped = false,
+      files = true,
+      add_dirs = true,
+      depth = 1,
+      auto_depth = false,
+      select_buffer = false,
+      hidden = false,
+      -- respect_gitignore
+      -- browse_files
+      -- browse_folders
+      hide_parent_dir = false,
+      collapse_dirs = false,
+      quiet = false,
+      dir_icon = "",
+      dir_icon_hl = "Default",
+      display_stat = { date = true, size = true },
+      hijack_netrw = false,
+      use_fd = true,
+      git_status = true,
+      mappings = {
+        ["i"] = {
+          ["<A-c>"] = fb_actions.create,
+          ["<S-CR>"] = fb_actions.create_from_prompt,
+          ["<A-r>"] = fb_actions.rename,
+          ["<A-m>"] = fb_actions.move,
+          ["<A-y>"] = fb_actions.copy,
+          ["<A-d>"] = fb_actions.remove,
+          ["<C-o>"] = fb_actions.open,
+          ["<C-g>"] = fb_actions.goto_parent_dir,
+          ["<C-e>"] = fb_actions.goto_home_dir,
+          ["<C-w>"] = fb_actions.goto_cwd,
+          ["<C-t>"] = fb_actions.change_cwd,
+          ["<C-f>"] = fb_actions.toggle_browser,
+          ["<C-h>"] = fb_actions.toggle_hidden,
+          ["<C-s>"] = fb_actions.toggle_all,
+        },
+        ["n"] = {
+          ["c"] = fb_actions.create,
+          ["r"] = fb_actions.rename,
+          ["m"] = fb_actions.move,
+          ["y"] = fb_actions.copy,
+          ["d"] = fb_actions.remove,
+          ["o"] = fb_actions.open,
+          ["g"] = fb_actions.goto_parent_dir,
+          ["e"] = fb_actions.goto_home_dir,
+          ["w"] = fb_actions.goto_cwd,
+          ["t"] = fb_actions.change_cwd,
+          ["f"] = fb_actions.toggle_browser,
+          ["h"] = fb_actions.toggle_hidden,
+          ["s"] = fb_actions.toggle_all,
+        },
+      },
+    },
+  },
+}
+require("telescope").load_extension "file_browser"
+
 require('toggleterm').setup{
   open_mapping = [[<C-t>]],
   start_in_insert=true,
