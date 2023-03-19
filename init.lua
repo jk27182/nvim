@@ -113,6 +113,10 @@ vim.api.nvim_create_autocmd('BufWritePost', {
 -- See `:help vim.o`
 -- Das bei Split das Fenster immer 'below' statt above ist
 vim.o.splitbelow = true
+-- Bei True bei Split das Fenster immer rechts statt links ist 
+vim.o.splitright = true
+
+vim.o.wrap = false
 
 -- Set highlight on search
 vim.o.hlsearch = false
