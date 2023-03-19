@@ -317,6 +317,7 @@ require('gitsigns').setup {
 -- See `:help telescope` and `:help telescope.setup()`
 require('telescope').setup {
   defaults = {
+  file_ignore_patterns={"Library", "Applications", "System"},
     mappings = {
       i = {
         ['<C-u>'] = false,
@@ -326,6 +327,7 @@ require('telescope').setup {
   },
 }
 
+-- telescope file_browser setup
 local fb_actions = require "telescope._extensions.file_browser.actions"
 require("telescope").setup {
   extensions = {
