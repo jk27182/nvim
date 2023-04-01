@@ -68,7 +68,7 @@ require("telescope").setup {
                         ["d"] = fb_actions.remove,
                         ["o"] = fb_actions.open,
                         ["h"] = fb_actions.goto_parent_dir,
-                        ["l"] = require("telescope.actions").select_default,
+                        ["x"] = require("telescope.actions").select_default,
                         ["e"] = fb_actions.goto_home_dir,
                         ["w"] = fb_actions.goto_cwd,
                         ["t"] = fb_actions.change_cwd,
