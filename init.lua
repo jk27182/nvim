@@ -7,6 +7,7 @@ require('janik.refactoring')
 require('janik.git')
 require('janik.lsp')
 require('janik.harpoon')
+require('janik.bufferline')
 
 
 -- [[ Highlight on yank ]]

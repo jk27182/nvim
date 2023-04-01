@@ -45,11 +45,6 @@ vim.keymap.set("n", "<leader>sr", "<C-W>v", { desc = "Split window right" })
 -- vim.keymap.set("n", "<leader>u", "<C-W>s", { desc = "Split window below" })
 -- vim.keymap.set("n", "<leader>rr", "<C-W>v", { desc = "Split window right" })
 
--- Buffers
-vim.keymap.set("n", "<leader>bd", "<cmd>bd<CR>", { desc = "Delete current buffer" })
-vim.keymap.set("n", "<S-h>", "<cmd>BufferLineCyclePrev<cr>", { desc = "Prev buffer" })
-vim.keymap.set("n", "<S-l>", "<cmd>BufferLineCycleNext<cr>", { desc = "Next buffer" })
-
 -- tabs
 vim.keymap.set("n", "<leader><tab>l", "<cmd>tablast<cr>", { desc = "Last Tab" })
 vim.keymap.set("n", "<leader><tab>f", "<cmd>tabfirst<cr>", { desc = "First Tab" })
