@@ -49,16 +49,22 @@ require('packer').startup(function(use)
   use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make', cond = vim.fn.executable 'make' == 1 }
 
   use { "nvim-telescope/telescope-file-browser.nvim",
-        requires = { "nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim" }
-   }
+    requires = { "nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim" }
+  }
   use {
     "ThePrimeagen/refactoring.nvim",
     requires = {
-        {"nvim-lua/plenary.nvim"},
-        {"nvim-treesitter/nvim-treesitter"}
+      { "nvim-lua/plenary.nvim" },
+      { "nvim-treesitter/nvim-treesitter" }
     }
-    }
+  }
 
+  use {
+    "ThePrimeagen/harpoon",
+    requires = {
+      { "nvim-lua/plenary.nvim" },
+    }
+  }
   -- Git related plugins
   -- use 'tpope/vim-fugitive'
   -- use 'tpope/vim-rhubarb'
@@ -66,23 +72,23 @@ require('packer').startup(function(use)
   -- diffview fuer eine bessere Uebersicht von magit diff
   -- use { 'sindrets/diffview.nvim', requires = 'nvim-lua/plenary.nvim' }
   use { 'TimUntersberger/neogit', requires = {
-        'nvim-lua/plenary.nvim',
-        -- 'sindrets/diffview.nvim',
-    } }
+    'nvim-lua/plenary.nvim',
+    -- 'sindrets/diffview.nvim',
+  } }
 
 
-  use 'navarasu/onedark.nvim' -- Theme inspired by Atom
+  use 'navarasu/onedark.nvim'               -- Theme inspired by Atom
   use 'sainnhe/gruvbox-material'
-  use 'nvim-lualine/lualine.nvim' -- Fancier statusline
-  use {'akinsho/bufferline.nvim', tag = "v3.*", requires = 'nvim-tree/nvim-web-devicons'}
+  use 'nvim-lualine/lualine.nvim'           -- Fancier statusline
+  use { 'akinsho/bufferline.nvim', tag = "v3.*", requires = 'nvim-tree/nvim-web-devicons' }
   use 'lukas-reineke/indent-blankline.nvim' -- Add indentation guides even on blank lines
-  use 'numToStr/Comment.nvim' -- "gc" to comment visual regions/lines
-  use 'tpope/vim-sleuth' -- Detect tabstop and shiftwidth automatically
+  use 'numToStr/Comment.nvim'               -- "gc" to comment visual regions/lines
+  use 'tpope/vim-sleuth'                    -- Detect tabstop and shiftwidth automatically
 
   -- Floating terminal like VS code
-  use {'akinsho/toggleterm.nvim', tag = '*', config = function()
-          require('toggleterm').setup{}
-  end}
+  use { 'akinsho/toggleterm.nvim', tag = '*', config = function()
+    require('toggleterm').setup {}
+  end }
 
   -- use 'tpope/vim-unimpaired' -- Shortcuts for Buffer and file switching
 
@@ -117,4 +123,3 @@ vim.api.nvim_create_autocmd('BufWritePost', {
   group = packer_group,
   pattern = vim.fn.expand '$MYVIMRC',
 })
-

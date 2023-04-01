@@ -6,6 +6,7 @@ require('janik.treesitter')
 require('janik.refactoring')
 require('janik.git')
 require('janik.lsp')
+require('janik.harpoon')
 
 
 -- [[ Highlight on yank ]]
